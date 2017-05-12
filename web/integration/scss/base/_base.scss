@@ -1,56 +1,6 @@
 // _base.scss
 
-* {
-  box-sizing: border-box;
-  font-family: font('secondary');
-  @include font-size(12px);
-}
-
-html {
-  overflow-x: hidden;
-}
-
-p {
+body {
   font-family: font(secondary);
-  color: color(foreground);
-  @include font-size(14px);
-  line-height: em(26px, 14px);
-
-  strong{
-    @include font-size(14px);
-    line-height: em(26px, 14px);
-  }
-
-  &.no-margin{
-    margin:0;
-  }
-
-  a {
-    color: color(primary);
-    @include font-size(14px);
-
-    @include respond-to(medium) {
-      @include font-size(16px);
-    }
-  }
-
-  @include respond-to(medium) {
-    @include font-size(16px);
-    line-height: em(28px, 16px);
-  }
-}
-
-.mg-tb-60 {
-  margin: 30px 0;
-
-  @include respond-to(medium) {
-    margin: 60px 0;
-  }
-}
-
-.img-margin{
-  margin: 30px 0;
-  @include respond-to(large) {
-    margin: 40px 0;
-  }
+  font-size: 12px;
 }

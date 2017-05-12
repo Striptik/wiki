@@ -21,7 +21,7 @@ gulp.task('styles', function () {
         .pipe(sourcemaps.init())
         .pipe(sass({
             //outputStyle: 'compressed',
-            includePaths: require('node-normalize-scss').includePaths
+            //includePaths: require('node-normalize-scss').includePaths
         }).on('error', notify.onError("Error: <%= error.message %>")))
         .pipe(autoprefixer({
             browsers: ['last 3 versions'],

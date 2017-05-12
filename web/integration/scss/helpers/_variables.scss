@@ -1,0 +1,72 @@
+// _variables.scss
+
+$font-size-base: 14px;
+$transition-duration: 500ms;
+$layout-width: 1200px;
+
+//-------------------------------------------------------------------//
+
+$color-key: 'base' !default;
+$colors: (
+        'primary': (
+                'base': #149E9D, // Green
+                'invert': #000 // White
+        ),
+        'secondary': (
+                'base': #eb6651, // Red/orange
+                'dark': #B45747, //  Dark red/orange
+                'invert': #000 // White
+        ),
+        'tertiary': (
+                'base': #ec9a3b, // Orange
+                'invert': #000 // White
+        ),
+        'foreground':(
+                'base': #2f2f2f, // Light black
+                'invert': #000 // White
+        ),
+        'background': (
+                'base': #FFF, // Temporary, change here
+                'invert': #000 // White
+        ),
+        'gray': (
+                'base': #ededed, // Grey
+                'medium': #c3c3c3,
+                'dark': #7b7b7b, // Dark
+                'darker' : #656565 //darker
+        ),
+        'social': (
+                'base': #fff,
+                'fb': #3b5998,
+                'tw': #26a6d1,
+                'vm': #86c9ef,
+                'yt': #c4302b,
+                'sc': #ff6a22,
+        )
+);
+
+$font-key: 'base' !default;
+$fonts: (
+        'primary': (
+                'base': ('Montserrat', sans-serif)
+        ),
+        'secondary': (
+                'base':('Open Sans', sans-serif)
+        ),
+        'tertiary': (
+                'base':('DIN Next', sans-serif)
+        ),
+        'icon': (
+                'base':('ao-icon-paris21')
+        )
+);
+
+$breakpoints: (
+        'small': (min-width: 480px),
+        'medium': (min-width: 750px),
+        'large': (min-width: 1024px),
+        'desktop': (min-width: 1240px),
+        'custom': (min-width: $layout-width),
+        'huge': (min-width: 1440px),
+        'insane': (min-width: 2560px) // >4K ('-.-)
+);

@@ -3,5 +3,5 @@ wiki_wiki:
     prefix:   /
 
 app:
-    resource: '@WikiBundle/Controller/'
+    resource: '@AppBundle/Controller/'
     type: annotation

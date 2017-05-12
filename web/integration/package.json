@@ -10,28 +10,16 @@
   },
   "main": "Gulpfile.js",
   "scripts": {
-    "watch": "./node_modules/.bin/gulp watch",
-    "build": "./node_modules/.bin/gulp dist--prod"
+    "watch": "gulp watch",
+    "dist": "gulp dist"
   },
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-environments": "^0.1.2",
-    "gulp-imagemin": "^3.2.0",
-    "gulp-jshint": "^2.0.4",
-    "gulp-livereload": "^3.8.1",
     "gulp-notify": "^3.0.0",
-    "gulp-plumber": "^1.1.0",
     "gulp-sass": "^3.1.0",
-    "gulp-shell": "^0.6.3",
-    "gulp-sourcemaps": "^2.5.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.8",
-    "jshint": "^2.9.4",
-    "map-stream": "0.0.7",
-    "node-normalize-scss": "^1.4.0"
+    "gulp-sourcemaps": "^2.5.1"
   }
 }

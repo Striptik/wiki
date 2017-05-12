@@ -1,20 +1,18 @@
-{% extends '@WikiWikiBundle/layout.html.twig' %}
+{% extends '@WikiWiki/layout.html.twig' %}
 
 {% block body %}
     {% block _header %}
-        {{ include('@WikiWikiBundle/Project/inc/header.html.twig') }}
+        {{ include('@WikiWiki/Project/inc/header.html.twig') }}
     {% endblock %}
 
     <div class="container">
         {% block _container %}
-            {% block _page_intro %}{% endblock %}
-
             {% block _page_content %}{% endblock %}
         {% endblock %}
     </div>
 
     {% block _footer %}
-        {{ include('@WikiWikiBundle/Project/inc/footer.html.twig') }}
+        {{ include('@WikiWiki/Project/inc/footer.html.twig') }}
     {% endblock %}
 
 {% endblock %}

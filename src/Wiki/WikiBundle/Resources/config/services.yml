@@ -1,0 +1,4 @@
+services:
+#    wiki_wiki.example:
+#        class: Wiki\WikiBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

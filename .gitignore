@@ -19,4 +19,5 @@
 /web/integration/js/bundle.js
 .idea/
 vendor/
+/.project
 composer.lock

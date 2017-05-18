@@ -35,4 +35,4 @@ gulp watch
 ```
 * Codez !
 
-_Projet développé par BAILLEUX Robin, LOISELEUR Kevin, RODRIGUES Mathieu & SIMONIN Alexandre.
+_Projet développé par BAILLEUX Robin, LOISELEUR Kevin, RODRIGUES Mathieu & SIMONIN Alexandre._

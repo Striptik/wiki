@@ -17,3 +17,4 @@
 /web/integration/node_modules
 .idea/
 vendor/
+/.project

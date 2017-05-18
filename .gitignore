@@ -15,5 +15,8 @@
 /vendor/
 /web/bundles/
 /web/integration/node_modules
+/web/integration/css/main.css
+/web/integration/js/bundle.js
 .idea/
 vendor/
+composer.lock

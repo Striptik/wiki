@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pages list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Slug</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for page in pages %}
+            <tr>
+                <td><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.id }}</a></td>
+                <td>{% if page.createdAt %}{{ page.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if page.updatedAt %}{{ page.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ page.slug }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('page_show', { 'id': page.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('page_edit', { 'id': page.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('page_new') }}">Create a new page</a>
+        </li>
+    </ul>
+{% endblock %}

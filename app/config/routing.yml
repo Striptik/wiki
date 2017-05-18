@@ -1,3 +1,7 @@
+wiki_wiki_page:
+    resource: "@WikiWikiBundle/Controller/PageController.php"
+    type:     annotation
+
 wiki_wiki:
     resource: "@WikiWikiBundle/Resources/config/routing.yml"
     prefix:   /

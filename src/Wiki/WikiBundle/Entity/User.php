@@ -22,18 +22,18 @@ class User
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
-    private $status;
+    private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255)
      */
-    private $email;
+    private $status;
 
     /**
      * @var string
@@ -45,9 +45,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudonyme", type="string", length=255, unique=true)
+     * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
      */
-    private $pseudonyme;
+    private $pseudo;
 
     /**
      * @var int
@@ -59,16 +59,16 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastconnected_at", type="datetime")
+     * @ORM\Column(name="lastConnectedAt", type="datetime")
      */
-    private $lastconnectedAt;
+    private $lastConnectedAt;
 
 
     /**
@@ -79,30 +79,6 @@ class User
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     *
-     * @return User
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
@@ -130,6 +106,30 @@ class User
     }
 
     /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return User
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -154,27 +154,27 @@ class User
     }
 
     /**
-     * Set pseudonyme
+     * Set pseudo
      *
-     * @param string $pseudonyme
+     * @param string $pseudo
      *
      * @return User
      */
-    public function setPseudonyme($pseudonyme)
+    public function setPseudo($pseudo)
     {
-        $this->pseudonyme = $pseudonyme;
+        $this->pseudo = $pseudo;
 
         return $this;
     }
 
     /**
-     * Get pseudonyme
+     * Get pseudo
      *
      * @return string
      */
-    public function getPseudonyme()
+    public function getPseudo()
     {
-        return $this->pseudonyme;
+        return $this->pseudo;
     }
 
     /**
@@ -226,27 +226,27 @@ class User
     }
 
     /**
-     * Set lastconnectedAt
+     * Set lastConnectedAt
      *
-     * @param \DateTime $lastconnectedAt
+     * @param \DateTime $lastConnectedAt
      *
      * @return User
      */
-    public function setLastconnectedAt($lastconnectedAt)
+    public function setLastConnectedAt($lastConnectedAt)
     {
-        $this->lastconnectedAt = $lastconnectedAt;
+        $this->lastConnectedAt = $lastConnectedAt;
 
         return $this;
     }
 
     /**
-     * Get lastconnectedAt
+     * Get lastConnectedAt
      *
      * @return \DateTime
      */
-    public function getLastconnectedAt()
+    public function getLastConnectedAt()
     {
-        return $this->lastconnectedAt;
+        return $this->lastConnectedAt;
     }
 }
 

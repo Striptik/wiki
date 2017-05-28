@@ -22,16 +22,23 @@ class Page
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="revisionId", type="integer")
+     */
+    private $revisionId;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
 
@@ -51,6 +58,30 @@ class Page
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set revisionId
+     *
+     * @param integer $revisionId
+     *
+     * @return Page
+     */
+    public function setRevisionId($revisionId)
+    {
+        $this->revisionId = $revisionId;
+
+        return $this;
+    }
+
+    /**
+     * Get revisionId
+     *
+     * @return int
+     */
+    public function getRevisionId()
+    {
+        return $this->revisionId;
     }
 
     /**

@@ -24,6 +24,13 @@ class UserStatistic
     /**
      * @var int
      *
+     * @ORM\Column(name="userId", type="integer")
+     */
+    private $userId;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="score", type="integer")
      */
     private $score;
@@ -37,6 +44,30 @@ class UserStatistic
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return UserStatistic
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**

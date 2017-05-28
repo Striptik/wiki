@@ -31,16 +31,30 @@ class Rating
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="userId", type="integer")
+     */
+    private $userId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="revisionId", type="integer")
+     */
+    private $revisionId;
 
 
     /**
@@ -123,6 +137,54 @@ class Rating
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return Rating
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set revisionId
+     *
+     * @param integer $revisionId
+     *
+     * @return Rating
+     */
+    public function setRevisionId($revisionId)
+    {
+        $this->revisionId = $revisionId;
+
+        return $this;
+    }
+
+    /**
+     * Get revisionId
+     *
+     * @return int
+     */
+    public function getRevisionId()
+    {
+        return $this->revisionId;
     }
 }
 

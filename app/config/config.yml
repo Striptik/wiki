@@ -71,7 +71,7 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-# CORS Configuration
+# Nelmio CORS Configuration
 nelmio_cors:
     defaults:
         allow_credentials: false
@@ -85,9 +85,6 @@ nelmio_cors:
 # FOSRest Configuration
 fos_rest:
     body_listener: true
-    format_listener:
-        rules:
-            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'
@@ -102,9 +99,3 @@ jms_serializer:
         datetime:
             default_format: "Y-m-d\\TH:i:sP"
             default_timezone: "UTC"
-
-
-
-# SensioExtaBundle Configuration
-sensio_framework_extra: #
-    view:    { annotations: false }

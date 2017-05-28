@@ -45,23 +45,31 @@ class PageRevision
     /**
      * @var string
      *
-     * @ORM\Column(name="updated_by", type="string", length=255, nullable=true)
+     * @ORM\Column(name="updatedBy", type="string", length=255, nullable=true)
      */
     private $updatedBy;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="revisionVersion", type="integer", nullable=true)
+     */
+    private $revisionVersion;
+
 
 
     /**
@@ -217,5 +225,30 @@ class PageRevision
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set revisionVersion
+     *
+     * @param integer $revisionVersion
+     *
+     * @return PageRevision
+     */
+    public function setRating($revisionVersion)
+    {
+        $this->revisionVersion = $revisionVersion;
+
+        return $this;
+    }
+
+    /**
+     * Get revisionVersion
+     *
+     * @return int
+     */
+    public function getRevisionVersion()
+    {
+        return $this->revisionVersion;
+    }
+
 }
 

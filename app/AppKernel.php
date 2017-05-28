@@ -15,11 +15,11 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
-            new Wiki\WikiBundle\WikiWikiBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new \Nelmio\CorsBundle\NelmioCorsBundle()
+            new \Nelmio\CorsBundle\NelmioCorsBundle(),
+            new AppBundle\AppBundle(),
+            new Wiki\WikiBundle\WikiWikiBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

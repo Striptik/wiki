@@ -85,6 +85,9 @@ nelmio_cors:
 # FOSRest Configuration
 fos_rest:
     body_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'
@@ -92,6 +95,8 @@ fos_rest:
             json: true
     serializer:
         serialize_null: true
+    body_converter:
+        enabled: true
 
 # JMS Serializer Configuration
 jms_serializer:
@@ -99,3 +104,7 @@ jms_serializer:
         datetime:
             default_format: "Y-m-d\\TH:i:sP"
             default_timezone: "UTC"
+
+# Sensio Extra Bundle Configuration
+sensio_framework_extra:
+    request: { converters: true }

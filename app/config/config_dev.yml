@@ -47,6 +47,8 @@ nelmio_cors:
 # FOSRest Configuration
 fos_rest:
     body_listener: true
+    routing_loader:
+        default_format: json
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }

@@ -66,7 +66,7 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnectedAt", type="datetime")
+     * @ORM\Column(name="lastConnectedAt", type="datetime", nullable=true)
      */
     private $lastConnectedAt;
 

@@ -1,0 +1,16 @@
+Wiki\WikiBundle\Entity\Page:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+    properties:
+        revisionId:
+            - NotBlank: ~
+            - Type: integer
+        createdAt:
+            - NotBlank: ~
+            - Type: datetime
+        updatedAt:
+            - NotBlank: ~
+            - Type: datetime
+        slug:
+            - NotBlank: ~
+            - Type: string

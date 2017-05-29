@@ -5,3 +5,7 @@ wiki_wiki_homepage:
 user:
     type: rest
     resource: "@WikiWikiBundle/Controller/UserController.php"
+
+pages:
+    type: rest
+    resource: Wiki\WikiBundle\Controller\PageController

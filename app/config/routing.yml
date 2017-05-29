@@ -5,3 +5,7 @@ wiki_wiki:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+users:
+    type: rest
+    resource: Wiki\WikiBundle\Controller\UserController

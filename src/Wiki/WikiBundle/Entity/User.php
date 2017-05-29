@@ -31,7 +31,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
@@ -59,17 +59,22 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastconnected_at", type="datetime")
+     * @ORM\Column(name="lastConnectedAt", type="datetime")
      */
-    private $lastconnectedAt;
+    private $lastConnectedAt;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->lastConnectedAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -226,27 +231,27 @@ class User
     }
 
     /**
-     * Set lastconnectedAt
+     * Set lastConnectedAt
      *
-     * @param \DateTime $lastconnectedAt
+     * @param \DateTime $lastConnectedAt
      *
      * @return User
      */
-    public function setLastconnectedAt($lastconnectedAt)
+    public function setLastConnectedAt($lastConnectedAt)
     {
-        $this->lastconnectedAt = $lastconnectedAt;
+        $this->lastConnectedAt = $lastConnectedAt;
 
         return $this;
     }
 
     /**
-     * Get lastconnectedAt
+     * Get lastConnectedAt
      *
      * @return \DateTime
      */
-    public function getLastconnectedAt()
+    public function getLastConnectedAt()
     {
-        return $this->lastconnectedAt;
+        return $this->lastConnectedAt;
     }
 }
 

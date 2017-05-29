@@ -1,3 +1,0 @@
-wiki_wiki_homepage:
-    path:     /
-    defaults: { _controller: WikiWikiBundle:Default:index }

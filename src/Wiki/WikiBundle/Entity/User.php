@@ -3,6 +3,7 @@
 namespace Wiki\WikiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * User
@@ -50,6 +51,13 @@ class User
     private $pseudo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true, nullable=true)
+     */
+    private $token;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="role", type="integer")
@@ -57,9 +65,8 @@ class User
     private $role;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
@@ -247,6 +254,30 @@ class User
     public function getLastConnectedAt()
     {
         return $this->lastConnectedAt;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string $token
+     */
+    public function getToken()
+    {
+        return $this->$token;
     }
 }
 

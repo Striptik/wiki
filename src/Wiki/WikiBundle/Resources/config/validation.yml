@@ -13,7 +13,6 @@ Wiki\WikiBundle\Entity\Page:
 #            - NotBlank: ~
 #            - Type: datetime
         slug:
-            - NotBlank: ~
             - Type: string
 
 Wiki\WikiBundle\Entity\PageRevision:

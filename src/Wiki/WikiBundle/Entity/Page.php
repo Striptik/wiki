@@ -4,6 +4,7 @@ namespace Wiki\WikiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Page
@@ -30,23 +31,20 @@ class Page
     protected $revisionId;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     protected $updatedAt;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", length=255, unique=true, nullable=true)
      */
     protected $slug;
 
@@ -54,6 +52,38 @@ class Page
      * @ORM\OneToMany(targetEntity="PageRevision", mappedBy="page")
      */
     protected $revisions;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return PageRevision
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * @return mixed

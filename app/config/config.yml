@@ -138,3 +138,14 @@ jms_serializer:
 # Sensio Extra Bundle Configuration
 sensio_framework_extra:
     request: { converters: true }
+
+# STOF bundle configuration
+
+stof_doctrine_extensions:
+    default_locale: en
+    translation_fallback: true
+    orm:
+        default:
+            timestampable: true
+            tree: true
+            sluggable: true

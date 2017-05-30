@@ -1,6 +1,6 @@
 Wiki\WikiBundle\Entity\PageRevision:
     exclusion_policy: none
-    attributes:
+    properties:
         id:
             groups: ['pageRevision', 'page']
         title:

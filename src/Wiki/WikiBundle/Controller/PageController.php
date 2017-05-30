@@ -34,7 +34,7 @@ class PageController extends Controller
     /**
      * @param Request $request
      *
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"page"})
      * @Rest\Get("/pages/{slug}")
      *
      * @return object

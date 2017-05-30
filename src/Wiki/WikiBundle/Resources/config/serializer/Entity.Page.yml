@@ -1,6 +1,6 @@
 Wiki\WikiBundle\Entity\Page:
     exclusion_policy: none
-    attributes:
+    properties:
         id:
             groups: ['page', 'pageRevision']
         revisionId:

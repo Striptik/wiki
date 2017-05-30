@@ -2,6 +2,7 @@
 
 namespace Wiki\WikiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,31 @@ class Page
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PageRevision", mappedBy="page")
+     */
+    protected $revision;
+
+    public function __construct()
+    {
+        $this->revision = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRevision()
+    {
+        return $this->revision;
+    }
+
+    /**
+     * @param mixed $revision
+     */
+    public function setRevision($revision)
+    {
+        $this->revision = $revision;
+    }
 
     /**
      * Get id

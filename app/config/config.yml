@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: en
     # A activer pour definir les noms d'attributs : camelCase ou snake_case
-    # jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 framework:
     #esi: ~

@@ -1,0 +1,31 @@
+Wiki\WikiBundle\Entity\PageRevision:
+    exclusion_policy: none
+    attributes:
+        id:
+            groups: ['revision', 'page']
+        title:
+            groups: ['revision', 'page']
+        status:
+            groups: ['revision', 'page']
+        content:
+            groups: ['revision', 'page']
+        updatedBy:
+            groups: ['revision', 'page']
+        createdAt:
+            groups: ['revision', 'page']
+        updatedAt:
+            groups: ['revision', 'page']
+        revisionVersion:
+            groups: ['revision', 'page']
+        page:
+            groups: ['revision']
+
+
+
+
+
+
+
+
+
+

@@ -70,6 +70,28 @@ class PageRevision
      */
     private $revisionVersion;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="pageRevision")
+     */
+    private $page;
+
+    /**
+     * @return string
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param string $page
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
 
 
     /**

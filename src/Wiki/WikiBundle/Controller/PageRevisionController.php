@@ -98,6 +98,17 @@ class PageRevisionController extends Controller
             return $this->pageNotFound();
         }
 
+        if (count($page->getRevisions()) !== 0) {
+            $pageRevisions = $page->getRevisions();
+
+            foreach ($pageRevisions as $revision) {
+                if ($revision->getStatus() == 'online') {
+                    $revision->setStatus('canceled');
+                    break;
+                }
+            }
+        }
+
         $pageRevision = new PageRevision($page);
 
         $form = $this->createForm(PageRevisionType::class, $pageRevision);

@@ -2,23 +2,23 @@ Wiki\WikiBundle\Entity\PageRevision:
     exclusion_policy: none
     attributes:
         id:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         title:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         status:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         content:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         updatedBy:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         createdAt:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         updatedAt:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         revisionVersion:
-            groups: ['revision', 'page']
+            groups: ['pageRevision', 'page']
         page:
-            groups: ['revision']
+            groups: ['pageRevision']
 
 
 

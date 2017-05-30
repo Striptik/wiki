@@ -20,60 +20,60 @@ class Page
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var int
      *
      * @ORM\Column(name="revisionId", type="integer")
      */
-    private $revisionId;
+    protected $revisionId;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="PageRevision", mappedBy="page")
      */
-    protected $revision;
-
-    public function __construct()
-    {
-        $this->revision = new ArrayCollection();
-    }
+    protected $revisions;
 
     /**
      * @return mixed
      */
-    public function getRevision()
+    public function getRevisions()
     {
-        return $this->revision;
+        return $this->revisions;
     }
 
     /**
-     * @param mixed $revision
+     * @param mixed $revisions
      */
-    public function setRevision($revision)
+    public function setRevisions($revisions)
     {
-        $this->revision = $revision;
+        $this->revisions = $revisions;
+    }
+
+    public function __construct()
+    {
+        $this->revisions = new ArrayCollection();
     }
 
     /**

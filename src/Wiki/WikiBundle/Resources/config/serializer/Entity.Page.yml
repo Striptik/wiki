@@ -2,14 +2,14 @@ Wiki\WikiBundle\Entity\Page:
     exclusion_policy: none
     attributes:
         id:
-            groups: ['page', 'revision']
+            groups: ['page', 'pageRevision']
         revisionId:
-            groups: ['page', 'revision']
+            groups: ['page', 'pageRevision']
         createdAt:
-            groups: ['page', 'revision']
+            groups: ['page', 'pageRevision']
         updatedAt:
-            groups: ['page', 'revision']
+            groups: ['page', 'pageRevision']
         slug:
-            groups: ['page', 'revision']
-        revision:
+            groups: ['page', 'pageRevision']
+        revisions:
             groups: ['page']

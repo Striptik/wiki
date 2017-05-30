@@ -5,12 +5,13 @@ namespace Wiki\WikiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wiki\WikiBundle\Entity\PageRevision;
 use Wiki\WikiBundle\Entity\Page;
 use Wiki\WikiBundle\Form\PageType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 
-class PageController extends Controller
+class PageRevisionController extends Controller
 {
     /**
      * @param Request $request
@@ -20,19 +21,19 @@ class PageController extends Controller
      *
      * @return array
      */
-    public function getPagesRevisionAction(Request $request)
+    public function getPageRevisionAction(Request $request)
     {
         $page = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('WikiWikiBundle:Page')
-            ->findBySlug($request->get('page_slug'));
+            ->findOneBy(array('slug' => $request->get('page_slug')));
 
         if (empty($page)) {
             return $this->pageNotFound();
         }
 
-        return $page->getRevision();
+        return $page->getRevisions();
     }
 
     private function pageNotFound()

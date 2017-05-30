@@ -9,3 +9,7 @@ user:
 pages:
     type: rest
     resource: Wiki\WikiBundle\Controller\PageController
+
+revisions:
+    type: rest
+    resource: Wiki\WikiBundle\Controller\PageRevisionController

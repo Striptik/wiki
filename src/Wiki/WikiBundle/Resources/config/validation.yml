@@ -1,16 +1,30 @@
 Wiki\WikiBundle\Entity\Page:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: revisionId
     properties:
         revisionId:
             - NotBlank: ~
             - Type: integer
-        createdAt:
-            - NotBlank: ~
-            - Type: datetime
-        updatedAt:
-            - NotBlank: ~
-            - Type: datetime
+#        createdAt:
+#            - NotBlank: ~
+#            - Type: datetime
+#        updatedAt:
+#            - NotBlank: ~
+#            - Type: datetime
         slug:
             - NotBlank: ~
             - Type: string
+
+Wiki\WikiBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pseudo
+    properties:
+        email:
+        status:
+        password:
+        pseudo:
+        role:
+        createdAt:
+        lastConnectedAt:

@@ -4,66 +4,94 @@ namespace Wiki\WikiBundle\Controller;
 
 // Import needed for FOSRest
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\View\View;
+// Symfony
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+// Datetime
 use \DateTime;
 // Entity
 use Wiki\WikiBundle\Entity\User;
+use Wiki\WikiBundle\Form\PageType;
+use Wiki\WikiBundle\Form\SignUpType;
 
 
-
-class UserController extends FOSRestController
+class UserController extends Controller
 {
-    public function getUserAction()
+    /**
+     *
+     * @Rest\View()
+     * @Rest\Get("/users")
+     *
+     * @return array
+     */
+    public function getUsersAction()
     {
-        $repository = $this->getDoctrine()->getRepository('WikiWikiBundle:User');
+        $users = $this
+            ->getDoctrine()
+            ->getRepository('WikiWikiBundle:User')
+            ->findAll();
 
         // Define Offset and Page ?
         // Actually all the users
-        $users = $repository->findAll();
-        $view = $this->view($users);
-        return $this->handleView($view);
+
+        return $users;
     }
 
-    // Validation a faire ? Unique pseudo ?..
 
-    public function postUserAction(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @Rest\View()
+     * @Rest\Get("/users/{id}")
+     *
+     * @return object
+     */
+    public function getUserAction(Request $request)
     {
-        //Retrieve all the request Data
+        $user = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('id' => $request->get('id')));
+
+        if(empty($user))
+        {
+            return View::create([
+                'message'   => 'User not foud',
+                'error'     => 'No user with this id',
+                'id'        => $request->get('id')
+                ], Response::HTTP_NOT_FOUND
+                );
+        }
+
+        return $user;
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\Post("/signup")
+     */
+    public function SignUpAction(Request $request)
+    {
+
         $userData = $request->request->all();
-
-        // Create the new User
-        // TO BE REPLACE WHITH A FORM TYPE
-        // details :
-        // http://npmasters.com/2012/11/25/Symfony2-Rest-FOSRestBundle.html
-        // https://github.com/FriendsOfSymfony/FOSRestBundle/issues/738
-        // !!! CREATE FORM and use form->isValid()
-
-        $date =  $date = new DateTime();
         $user = new User();
-        $user->setEmail('kev1in1@nestorparis.com')
-            ->setPassword('qweqwe')
-            ->setPseudo('Kooks12')
-            ->setRole('Admin')
-            ->setStatus('Online')
-            ->setCreatedAt($date);
-
-        // If it's valid, store in the DB
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
+        $form = $this->createForm(SignUpType::class, $user);
+        $form->submit($userData); // Handle Date, Password repeat, status and role
 
 
-        // If it's not valid, send Errors
-
-        // otherwise send Response
-
-        $view = $this->view(array('userId' => $user->getId()));
-        return $this->handleView($view);
-
-
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $user;
+        }
+        return $form;
 
     }
+
+
 }

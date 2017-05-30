@@ -45,7 +45,7 @@ class PageController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('WikiWikiBundle:Page')
-            ->findBySlug($request->get('slug'));
+            ->findBy(array('slug' => $request->get('slug')));
 
         if (empty($page)) {
             return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);

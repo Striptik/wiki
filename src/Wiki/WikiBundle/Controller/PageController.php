@@ -55,7 +55,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"page"})
      * @Rest\Post("/pages")
      */
     public function postPagesAction(Request $request)
@@ -77,5 +77,45 @@ class PageController extends Controller
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"page"})
+     * @Rest\Delete("/pages/{slug}")
+     */
+    public function removePageAction(Request $request)
+    {
+/*        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $page = $em->getRepository('WikiWikiBundle:Page')
+            ->findBySlug($request->get('slug'));*/
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $page = $em->getRepository('WikiWikiBundle:Page')
+            ->findOneBy(array('slug' => $request->get('slug')));
+
+        return $page;
+        /*$em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $page = $em
+            ->getRepository('WikiWikiBundle:Page')
+            ->find($request->get('slug'));
+
+        if (!$page) {
+            echo 'test';
+            return;
+        }
+        echo 'test2';
+        return $page;
+        foreach ($page->getRevisions() as $revision) {
+            $em->remove($revision);
+        }
+
+        $em->remove($page);
+        $em->flush();*/
     }
 }

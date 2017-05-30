@@ -22,7 +22,7 @@ class PageRevisionController extends Controller
      *
      * @return array
      */
-    public function getPageRevisionAction(Request $request)
+    public function getPageRevisionsAction(Request $request)
     {
         $page = $this
             ->getDoctrine()
@@ -35,6 +35,47 @@ class PageRevisionController extends Controller
         }
 
         return $page->getRevisions();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Rest\View(serializerGroups={"pageRevision"})
+     * @Rest\Get("/pages/{page_slug}/revision/{status}")
+     *
+     * @return array
+     */
+    public function getPageRevisionAction(Request $request)
+    {
+        $page = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:Page')
+            ->findOneBy(array('slug' => $request->get('page_slug')));
+
+        if (empty($page)) {
+            return $this->pageNotFound();
+        }
+
+        $pageRevisions = $page->getRevisions();
+
+        foreach ($pageRevisions as $revision) {
+            if ($request->get('status') == 'online' && $revision->getStatus() == 'online') {
+                return $revision;
+            } else if ($request->get('status') == 'pending' && $revision->getStatus() == 'pending') {
+                $arrayRevisions[] = $revision;
+            } else if ($request->get('status') == 'canceled' && $revision->getStatus() == 'canceled') {
+                $arrayRevisions[] = $revision;
+            } else if ($request->get('status') == 'draft' && $revision->getStatus() == 'draft') {
+                $arrayRevisions[] = $revision;
+            }
+        }
+
+        if (empty($arrayRevisions)) {
+            return $this->revisionNotFound();
+        }
+
+        return $arrayRevisions;
     }
 
     /**
@@ -55,6 +96,17 @@ class PageRevisionController extends Controller
 
         if (empty($page)) {
             return $this->pageNotFound();
+        }
+
+        if (count($page->getRevisions()) !== 0) {
+            $pageRevisions = $page->getRevisions();
+
+            foreach ($pageRevisions as $revision) {
+                if ($revision->getStatus() == 'online') {
+                    $revision->setStatus('canceled');
+                    break;
+                }
+            }
         }
 
         $pageRevision = new PageRevision($page);
@@ -80,5 +132,10 @@ class PageRevisionController extends Controller
     private function pageNotFound()
     {
         return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    private function revisionNotFound()
+    {
+        return View::create(['message' => 'Revision not found'], Response::HTTP_NOT_FOUND);
     }
 }

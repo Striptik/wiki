@@ -17,9 +17,6 @@ Wiki\WikiBundle\Entity\Page:
             - Type: string
 
 Wiki\WikiBundle\Entity\PageRevision:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: revisionId
     properties:
         title:
             - NotBlank: ~
@@ -30,19 +27,13 @@ Wiki\WikiBundle\Entity\PageRevision:
                 choices: [online, pending_validation, canceled, draft]
         content:
             - NotBlank: ~
-            - Type: text
+            - Type: string
         updatedBy:
             - NotBlank: ~
             - Type: integer
-        createdAt:
-            - NotBlank: ~
-            - Type: datetime
-        updatedAt:
-            - NotBlank: ~
-            - Type: datetime
-        revisionVersion:
-            - NotBlank: ~
-            - Type: integer
+#        createdAt:
+#            - NotBlank: ~
+#            - Type: datetime
 
 Wiki\WikiBundle\Entity\User:
     constraints:

@@ -17,9 +17,7 @@ class PageRevisionType extends AbstractType
         $builder->add('status');
         $builder->add('content', TextType::class);
         $builder->add('updatedBy', IntegerType::class);
-        $builder->add('createdAt', DateTimeType::class);
-        $builder->add('updatedAt', DateTimeType::class);
-        $builder->add('revisionVersion', IntegerType::class);
+        #$builder->add('createdAt', DateTimeType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

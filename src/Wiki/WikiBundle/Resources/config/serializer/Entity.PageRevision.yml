@@ -13,19 +13,5 @@ Wiki\WikiBundle\Entity\PageRevision:
             groups: ['pageRevision', 'page']
         createdAt:
             groups: ['pageRevision', 'page']
-        updatedAt:
-            groups: ['pageRevision', 'page']
-        revisionVersion:
-            groups: ['pageRevision', 'page']
         page:
             groups: ['pageRevision']
-
-
-
-
-
-
-
-
-
-

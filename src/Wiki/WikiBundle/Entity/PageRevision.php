@@ -52,23 +52,9 @@ class PageRevision
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="revisionVersion", type="integer", nullable=true)
-     */
-    private $revisionVersion;
 
     /**
      * @var string
@@ -76,6 +62,11 @@ class PageRevision
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="pageRevision")
      */
     private $page;
+
+    public function __construct($page)
+    {
+        $this->setPage($page);
+    }
 
     /**
      * @return string
@@ -225,30 +216,6 @@ class PageRevision
     }
 
     /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return PageRevision
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
      * Set revisionVersion
      *
      * @param integer $revisionVersion
@@ -260,16 +227,6 @@ class PageRevision
         $this->revisionVersion = $revisionVersion;
 
         return $this;
-    }
-
-    /**
-     * Get revisionVersion
-     *
-     * @return int
-     */
-    public function getRevisionVersion()
-    {
-        return $this->revisionVersion;
     }
 
 }

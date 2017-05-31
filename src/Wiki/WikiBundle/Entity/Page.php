@@ -36,6 +36,13 @@ class Page
     protected $updatedAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", length=255, unique=true, nullable=true)
      */
@@ -45,13 +52,6 @@ class Page
      * @ORM\OneToMany(targetEntity="PageRevision", mappedBy="page")
      */
     protected $revisions;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
 
 
     /**

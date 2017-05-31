@@ -3,6 +3,8 @@ Wiki\WikiBundle\Entity\Page:
     properties:
         id:
             groups: ['page', 'pageRevision']
+        title:
+            groups: ['page', 'pageRevision']
         createdAt:
             groups: ['page', 'pageRevision']
         updatedAt:

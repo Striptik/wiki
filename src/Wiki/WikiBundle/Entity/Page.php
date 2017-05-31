@@ -24,13 +24,6 @@ class Page
     protected $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="revisionId", type="integer")
-     */
-    protected $revisionId;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
@@ -114,30 +107,6 @@ class Page
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set revisionId
-     *
-     * @param integer $revisionId
-     *
-     * @return Page
-     */
-    public function setRevisionId($revisionId)
-    {
-        $this->revisionId = $revisionId;
-
-        return $this;
-    }
-
-    /**
-     * Get revisionId
-     *
-     * @return int
-     */
-    public function getRevisionId()
-    {
-        return $this->revisionId;
     }
 
     /**

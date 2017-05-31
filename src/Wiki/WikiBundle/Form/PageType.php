@@ -14,7 +14,6 @@ class PageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('revisionId', IntegerType::class);
         //$builder->add('createdAt', DateTimeType::class);
         //$builder->add('updatedAt', DateTimeType::class);
         $builder->add('title', TextType::class);

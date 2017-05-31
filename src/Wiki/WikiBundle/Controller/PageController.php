@@ -9,6 +9,8 @@ use Wiki\WikiBundle\Entity\Page;
 use Wiki\WikiBundle\Form\PageType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 
 class PageController extends Controller
 {
@@ -27,6 +29,85 @@ class PageController extends Controller
             ->getManager()
             ->getRepository('WikiWikiBundle:Page')
             ->findAll();
+
+        return $pages;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Rest\View(serializerGroups={"page"})
+     * @Rest\Get("/pages/last")
+     * @QueryParam(name="offset", requirements="\d+", default="", description="Index de début de la pagination")
+     * @QueryParam(name="limit", requirements="\d+", default="", description="Index de fin de la pagination")
+     *
+     * @return array
+     */
+    public function getLastPagesAction(Request $request, ParamFetcher $paramFetcher)
+    {
+        $offset = $paramFetcher->get('offset');
+        $limit = $paramFetcher->get('limit');
+
+        $qb = $this->getDoctrine()
+            ->getManager()
+            ->createQueryBuilder();
+
+        $qb->select('p')
+            ->from('WikiWikiBundle:Page', 'p')
+            ->orderBy('p.createdAt', 'DESC');
+
+        if ($offset != "") {
+            $qb->setFirstResult($offset);
+        }
+
+        if ($limit != "") {
+            $qb->setMaxResults($limit);
+        }
+
+        $pages = $qb->getQuery()->getResult();
+
+        return $pages;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Rest\View(serializerGroups={"page"})
+     * @Rest\Get("/pages/search")
+     * @QueryParam(name="q", requirements=".+", default="", description="Query à rechercher")
+     * @QueryParam(name="offset", requirements="\d+", default="0", description="Index de début de la pagination")
+     * @QueryParam(name="limit", requirements="\d+", default="10", description="Index de fin de la pagination")
+     *
+     * @return array
+     */
+    public function getSearchPagesAction(Request $request, ParamFetcher $paramFetcher)
+    {
+        $q = $paramFetcher->get('q');
+        $offset = $paramFetcher->get('offset');
+        $limit = $paramFetcher->get('limit');
+
+        $qb = $this->getDoctrine()
+            ->getManager()
+            ->createQueryBuilder();
+
+        $qb->select('p')
+            ->from('WikiWikiBundle:Page', 'p')
+            ->orderBy('p.createdAt', 'DESC');
+
+        if ($q != "") {
+            $qb->where('p.title LIKE :q')
+            ->setParameter('q', '%'.$q.'%');
+        }
+
+        if ($offset != "0") {
+            $qb->setFirstResult($offset);
+        }
+
+        if ($limit != "10") {
+            $qb->setMaxResults($limit);
+        }
+
+        $pages = $qb->getQuery()->getResult();
 
         return $pages;
     }
@@ -86,7 +167,7 @@ class PageController extends Controller
     public function removePageAction(Request $request)
     {
         $em = $this->getDoctrine()
-                ->getManager();
+            ->getManager();
         $page = $em->getRepository('WikiWikiBundle:Page')
             ->findOneBy(array('slug' => $request->get('slug')));
 

@@ -129,6 +129,37 @@ class PageRevisionController extends Controller
         }
     }
 
+    /**
+     * @Rest\View(serializerGroups={"pageRevision"})
+     * @Rest\Delete("/pages/{page_slug}/revision/{id}")
+     */
+    public function removePageRevisionAction(Request $request)
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+        $page = $em->getRepository('WikiWikiBundle:Page')
+            ->findOneBy(array('slug' => $request->get('page_slug')));
+
+        if (!$page) {
+            return $this->pageNotFound();
+        }
+
+        if (count($page->getRevisions()) !== 0) {
+            $pageRevisions = $page->getRevisions();
+
+            foreach ($pageRevisions as $pageRevision) {
+                if ($pageRevision->getId() == $request->get('id')) {
+                    $em->remove($pageRevision);
+                    $em->flush();
+
+                    return View::create(['message' => 'Revision deleted'], Response::HTTP_NOT_FOUND);
+                }
+            }
+        }
+
+        return $this->revisionNotFound();
+    }
+
     private function pageNotFound()
     {
         return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);

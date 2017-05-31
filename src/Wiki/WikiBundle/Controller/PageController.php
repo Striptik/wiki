@@ -48,7 +48,7 @@ class PageController extends Controller
             ->findBy(array('slug' => $request->get('slug')));
 
         if (empty($page)) {
-            return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+            return $this->pageNotFound();
         }
 
         return $page;
@@ -91,7 +91,7 @@ class PageController extends Controller
             ->findOneBy(array('slug' => $request->get('slug')));
 
         if (!$page) {
-            return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+            return $this->pageNotFound();
         }
 
         foreach ($page->getRevisions() as $pageRevision) {
@@ -102,5 +102,10 @@ class PageController extends Controller
         $em->flush();
 
         return View::create(['message' => 'Page deleted'], Response::HTTP_NOT_FOUND);
+    }
+
+    private function pageNotFound()
+    {
+        return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
     }
 }

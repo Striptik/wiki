@@ -80,18 +80,18 @@ class PageController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/pages/{id}")
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"page"})
+     * @Rest\Delete("/pages/{slug}")
      */
     public function removePageAction(Request $request)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()
+                ->getManager();
         $page = $em->getRepository('WikiWikiBundle:Page')
-            ->find($request->get('id'));
-        /* @var $page Page */
+            ->findOneBy(array('slug' => $request->get('slug')));
 
         if (!$page) {
-            return;
+            return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
         }
 
         foreach ($page->getRevisions() as $pageRevision) {
@@ -100,5 +100,7 @@ class PageController extends Controller
 
         $em->remove($page);
         $em->flush();
+
+        return View::create(['message' => 'Page deleted'], Response::HTTP_NOT_FOUND);
     }
 }

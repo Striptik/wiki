@@ -109,6 +109,10 @@ class PageController extends Controller
 
         $pages = $qb->getQuery()->getResult();
 
+        if (empty($pages)) {
+            return $this->pageNotFound();
+        }
+
         return $pages;
     }
 

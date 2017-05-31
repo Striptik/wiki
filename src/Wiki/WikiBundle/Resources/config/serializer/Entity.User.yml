@@ -1,0 +1,17 @@
+Wiki\WikiBundle\Entity\User:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['user']
+        email:
+            groups: ['user']
+        status:
+            groups: ['user']
+        pseudo:
+            groups: ['user']
+        role:
+            groups: ['user']
+        createdAt:
+            groups: ['user']
+        lastConnectedAt:
+            groups: ['user']

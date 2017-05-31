@@ -23,9 +23,9 @@ Wiki\WikiBundle\Entity\PageRevision:
         content:
             - NotBlank: ~
             - Type: string
-        updatedBy:
-            - NotBlank: ~
-            - Type: integer
+#        updatedBy:
+#            - NotBlank: ~
+#            - Type: integer
 #        createdAt:
 #            - NotBlank: ~
 #            - Type: datetime
@@ -35,10 +35,25 @@ Wiki\WikiBundle\Entity\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pseudo
     properties:
-        email:
-        status:
-        password:
         pseudo:
+            - NotBlank: ~
+            - Type: string
+        email:
+            - NotBlank: ~
+            - Type: string
+        status:
+            - NotBlank: ~
+            - Choice:
+                choices: [active, banned]
+        password:
+            - NotBlank: ~
+            - Type: string
         role:
-        createdAt:
-        lastConnectedAt:
+            - NotBlank: ~
+            - Type: integer
+#        createdAt:
+#            - NotBlank: ~
+#            - Type: string
+#        lastConnectedAt:
+#            - NotBlank: ~
+#            - Type: string

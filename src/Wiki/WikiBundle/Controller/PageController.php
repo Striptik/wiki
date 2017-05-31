@@ -20,7 +20,7 @@ class PageController extends Controller
      *
      * @return array
      */
-    public function getPagesAction(Request $request)
+    public function getPagesAction()
     {
         $pages = $this
             ->getDoctrine()

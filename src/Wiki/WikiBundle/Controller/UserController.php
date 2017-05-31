@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use \DateTime;
 // Entity
 use Wiki\WikiBundle\Entity\User;
-use Wiki\WikiBundle\Form\PageType;
 use Wiki\WikiBundle\Form\SignUpType;
 
 
@@ -22,7 +21,7 @@ class UserController extends Controller
 {
     /**
      *
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users")
      *
      * @return array
@@ -31,6 +30,7 @@ class UserController extends Controller
     {
         $users = $this
             ->getDoctrine()
+            ->getManager()
             ->getRepository('WikiWikiBundle:User')
             ->findAll();
 
@@ -44,7 +44,7 @@ class UserController extends Controller
     /**
      * @param Request $request
      *
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users/{id}")
      *
      * @return object
@@ -71,7 +71,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})
      * @Rest\Post("/signup")
      */
     public function SignUpAction(Request $request)

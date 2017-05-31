@@ -4,14 +4,13 @@ namespace Wiki\WikiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * User
- *
- * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Wiki\WikiBundle\Repository\UserRepository")
+ * @ORM\Table(name="fos_user")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -20,63 +19,68 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
-    private $status;
+    protected $status;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      *
      * @ORM\Column(name="pseudo", type="string", length=255, unique=true)
      */
-    private $pseudo;
+    protected $pseudo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255, unique=true, nullable=true)
      */
-    private $token;
+    protected $token;
 
     /**
      * @var int
      *
      * @ORM\Column(name="role", type="integer")
      */
-    private $role;
+    protected $role;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastConnectedAt", type="datetime", nullable=true)
      */
-    private $lastConnectedAt;
+    protected $lastConnectedAt;
 
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
 
     /**
      * Get id

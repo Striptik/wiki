@@ -15,15 +15,9 @@ class SignUpType extends AbstractType
         // TODO: Handle the comments info, Add the type class
         //
 
-        $builder->add('email');
-        $builder->add('pseudo');
         $builder->add('username');
-
-        $builder->add('password'); // To get the password and the verification
-
-        $builder->add('status'); // Set if online or not
-        $builder->add('role'); // To define by default
-
+        $builder->add('email');
+        $builder->add('plainPassword');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -79,6 +79,7 @@ class UserController extends Controller
 
         $userData = $request->request->all();
         $user = new User();
+        $user->setEnabled(1);
         $form = $this->createForm(SignUpType::class, $user);
         $form->submit($userData); // Handle Date, Password repeat, status and role
 

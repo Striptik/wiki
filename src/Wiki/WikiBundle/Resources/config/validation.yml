@@ -30,27 +30,27 @@ Wiki\WikiBundle\Entity\PageRevision:
 #            - NotBlank: ~
 #            - Type: datetime
 
-Wiki\WikiBundle\Entity\User:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pseudo
-    properties:
-        pseudo:
-            - NotBlank: ~
-            - Type: string
-        email:
-            - NotBlank: ~
-            - Type: string
-        status:
-            - NotBlank: ~
-            - Choice:
-                choices: [active, banned]
-        password:
-            - NotBlank: ~
-            - Type: string
-        role:
-            - NotBlank: ~
-            - Type: integer
+#Wiki\WikiBundle\Entity\User:
+#    constraints:
+#        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+#        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pseudo
+#    properties:
+#        username:
+#            - NotBlank: ~
+#            - Type: string
+#        email:
+#            - NotBlank: ~
+#            - Type: string
+#        status:
+#            - NotBlank: ~
+#            - Choice:
+#                choices: [active, banned]
+#        password:
+#            - NotBlank: ~
+#            - Type: string
+#        role:
+#            - NotBlank: ~
+#            - Type: integer
 #        createdAt:
 #            - NotBlank: ~
 #            - Type: string

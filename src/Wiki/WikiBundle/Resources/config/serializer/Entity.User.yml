@@ -5,13 +5,15 @@ Wiki\WikiBundle\Entity\User:
             groups: ['user']
         email:
             groups: ['user']
-        status:
+        username:
             groups: ['user']
-        pseudo:
+        enabled:
+            groups: ['user']
+        password:
             groups: ['user']
         role:
             groups: ['user']
         createdAt:
             groups: ['user']
-        lastConnectedAt:
+        last_login:
             groups: ['user']

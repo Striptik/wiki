@@ -184,4 +184,5 @@ class UserController extends Controller
         $session->clear();
         return View::create(['logout' => 'OK'],Response::HTTP_NOT_FOUND);
     }
+
 }

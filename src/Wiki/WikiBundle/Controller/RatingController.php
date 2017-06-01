@@ -137,33 +137,42 @@ class RatingController extends Controller
      */
     public function getAverageUserAction(Request $request)
     {
-        $user = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('WikiWikiBundle:User`')
-            ->findBy(array('' => $request->get('userToken')));
+        // User connecté ?
+        $userId = $request->get('userId');
+        $session = $this->get('session');
+        if ($session->has('userId') && ($session->get('userId') == $userId)) {
+            $user = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('WikiWikiBundle:User`')
+                ->findBy(array('' => $request->get('userToken')));
 
-        $rates = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('WikiWikiBundle:Rating')
-            ->findBy(array('user' => $user));
+            $rates = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('WikiWikiBundle:Rating')
+                ->findBy(array('user' => $user));
 
-        if (empty($rates))
-        {
-            return $this->noRates('L\'utilisateur');
+            if (empty($rates))
+            {
+                return $this->noRates('L\'utilisateur');
+            }
+
+            $avg = 0;
+            $nb = 0;
+            foreach($rates as $rate)
+            {
+                $avg = $rate->getRating();
+                $nb++;
+            }
+            $avg = $avg/$nb;
+
+            return View::create(['average' => $avg], Response::HTTP_CREATED);
+        }
+        else {
+            return View::create(['error' => 'Utilisateur non connecté'], Response::HTTP_FORBIDDEN);
         }
 
-        $avg = 0;
-        $nb = 0;
-        foreach($rates as $rate)
-        {
-            $avg = $rate->getRating();
-            $nb++;
-        }
-        $avg = $avg/$nb;
-
-        return View::create(['average' => $avg], Response::HTTP_CREATED);
     }
 
     public function noRates($type)

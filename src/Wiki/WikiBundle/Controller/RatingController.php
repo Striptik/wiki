@@ -97,7 +97,7 @@ class RatingController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('WikiWikiBundle:Rating')
-            ->findBy(array('page' => $page->));
+            ->findBy(array('page' => $page));
 
 
 

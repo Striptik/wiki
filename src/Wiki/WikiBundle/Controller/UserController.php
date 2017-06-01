@@ -100,11 +100,11 @@ class UserController extends Controller
             ->findBy(array('username' => $request->get('username')));
 
         if($check_email) {
-            return new JsonResponse(['email' => 'Cet email est déjà utilisé'], Response::HTTP_CONFLICT);
+            return new JsonResponse(['error' => 'Cet email est déjà utilisé'], Response::HTTP_CONFLICT);
         }
 
         if($check_username) {
-            return new JsonResponse(['username' => 'Ce username est déjà utilisé'], Response::HTTP_CONFLICT);
+            return new JsonResponse(['error' => 'Ce username est déjà utilisé'], Response::HTTP_CONFLICT);
         }
 
         if ($form->isValid()) {

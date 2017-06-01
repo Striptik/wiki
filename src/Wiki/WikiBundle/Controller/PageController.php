@@ -167,7 +167,7 @@ class PageController extends Controller
     public function postPagesAction(Request $request)
     {
         $user = $this->getDoctrine()->getManager()->getRepository('WikiWikiBundle:User')
-            ->findBy(array('id' => $request->get('userId')));
+            ->findOneBy(array('id' => $request->get('userId')));
         $page = new Page($user);
 
         $pageSub = $request->request->all();

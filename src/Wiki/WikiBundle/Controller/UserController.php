@@ -163,7 +163,7 @@ class UserController extends Controller
      */
     public function LogoutAction() {
         $session = $this->get('session');
-        $session->clear();
+        $session->invalidate();
         return View::create(['logout' => 'OK'],Response::HTTP_NOT_FOUND);
     }
 

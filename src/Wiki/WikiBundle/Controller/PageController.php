@@ -171,7 +171,7 @@ class PageController extends Controller
         $page = new Page($user);
 
         $pageSub = $request->request->all();
-        unset($arr['userId']);
+        unset($pageSub['userId']);
 
         $form = $this->createForm(PageType::class, $page);
 

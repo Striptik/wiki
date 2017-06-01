@@ -39,7 +39,7 @@ class RatingController extends Controller
      * @Rest\View(statusCode=Response::HTTP_CREATED)
      * @Rest\Post("/ratings")
      */
-    public function postPagesAction(Request $request)
+    public function postRatingsAction(Request $request)
     {
         $rating = new Rating();
 

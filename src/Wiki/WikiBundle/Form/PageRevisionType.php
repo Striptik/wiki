@@ -14,8 +14,12 @@ class PageRevisionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('status');
-        $builder->add('content', TextType::class);
-        $builder->add('updatedBy', IntegerType::class);
+        $builder->add('content', TextType::class, [
+            'description' => "Contenu de la révision"
+        ]);
+        $builder->add('updatedBy', IntegerType::class, [
+            'description' => "Date de mise à jour"
+        ]);
         #$builder->add('createdAt', DateTimeType::class);
     }
 

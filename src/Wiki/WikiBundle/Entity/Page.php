@@ -137,7 +137,7 @@ class Page
      *
      * @param string $title
      *
-     * @return PageRevision
+     * @return Page
      */
     public function setTitle($title)
     {

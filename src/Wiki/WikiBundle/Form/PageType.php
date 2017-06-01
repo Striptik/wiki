@@ -4,6 +4,7 @@ namespace Wiki\WikiBundle\Form;
 
 use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,9 +18,7 @@ class PageType extends AbstractType
         $builder->add('title', TextType::class, [
             'description' => "Nom du lieu"
         ]);
-        $builder->add('slug', TextType::class, [
-            'description' => "Slug de la page"
-        ]);
+        $builder->add('slug');
     }
 
     public function configureOptions(OptionsResolver $resolver)

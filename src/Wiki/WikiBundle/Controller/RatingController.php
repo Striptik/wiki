@@ -2,6 +2,7 @@
 
 namespace Wiki\WikiBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +17,11 @@ use Wiki\WikiBundle\Form\RatingType;
 class RatingController extends Controller
 {
     /**
-     * Get all the reviews
-
+     * @ApiDoc(
+     *    description="Récupère toutes les notes",
+     *    output= { "class"=Rating::class, "collection"=true, "groups"={"rating"} }
+     * )
+     *
      * @Rest\Get("/ratings")
      *
      * @return array
@@ -35,7 +39,11 @@ class RatingController extends Controller
 
 
     /**
-     * Create Review
+     * @ApiDoc(
+     *    description="Ajoute une note",
+     *    input={"class"=RatingType::class, "name"=""}
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_CREATED)
      * @Rest\Post("/ratings")
      */
@@ -82,7 +90,11 @@ class RatingController extends Controller
 
 
     /**
-     * Get Page Average
+     * @ApiDoc(
+     *    description="Récupère la note moyenne d'une page",
+     *    output= { "class"=Rating::class, "collection"=true, "groups"={"rating"} }
+     * )
+     *
      * @Rest\Get("/average/page/{id}")
      */
     public function getAveragePageAction(Request $request)
@@ -116,8 +128,11 @@ class RatingController extends Controller
         return View::create(['average' => $avg], Response::HTTP_CREATED);
     }
 
-    /**
-     * Get User Average
+     /**
+     * @ApiDoc(
+     *    description="Récupère la note moyenne d'un utilisateur",
+     *    output= { "class"=Rating::class, "collection"=true, "groups"={"rating"} }
+     * )
      * @Rest\Get("/average/user/{id}")
      */
     public function getAverageUserAction(Request $request)

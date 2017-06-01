@@ -98,7 +98,7 @@ class PageRevisionController extends Controller
             return $this->pageNotFound();
         }
 
-        if (count($page->getRevisions()) !== 0) {
+        /*if (count($page->getRevisions()) !== 0) {
             $pageRevisions = $page->getRevisions();
 
             foreach ($pageRevisions as $revision) {
@@ -107,7 +107,7 @@ class PageRevisionController extends Controller
                     break;
                 }
             }
-        }
+        }*/
 
         $pageRevision = new PageRevision($page);
 

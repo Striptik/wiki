@@ -166,7 +166,9 @@ class PageController extends Controller
      */
     public function postPagesAction(Request $request)
     {
-        $page = new Page();
+        $user = $this->getDoctrine()->getManager()->getRepository('WikiWikiBundle:User')
+            ->findBy(array('id' => $request->get('userId')));
+        $page = new Page($user);
 
         $form = $this->createForm(PageType::class, $page);
 

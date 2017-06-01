@@ -10,9 +10,9 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 // Entity
-use Symfony\Component\HttpFoundation\Session\Session;
 use Wiki\WikiBundle\Entity\User;
 use Wiki\WikiBundle\Form\LoginType;
 use Wiki\WikiBundle\Form\SignUpType;
@@ -72,30 +72,12 @@ class UserController extends Controller
                 'message'   => 'User not foud',
                 'error'     => 'No user with this id',
                 'id'        => $request->get('id')
-            ], Response::HTTP_NOT_FOUND
-            );
+            ], Response::HTTP_NOT_FOUND);
         }
 
         return $user;
     }
 
-
-    /**
-     *
-     * @Rest\View(serializerGroups={"user"})
-     * @Rest\Get("/users")
-     *
-     * @return array
-     */
-    public function getUsersAction()
-    {
-        $users = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('WikiWikiBundle:User')
-            ->findAll();
-        return $users;
-    }
 
     /**
      *
@@ -177,9 +159,9 @@ class UserController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_ACCEPTED)
-     * @Rest\Post('/signout')
+     * @Rest\Get('/signout')
      */
-    public function LogoutAction(Request $request) {
+    public function LogoutAction() {
         $session = $this->get('session');
         $session->clear();
         return View::create(['logout' => 'OK'],Response::HTTP_NOT_FOUND);

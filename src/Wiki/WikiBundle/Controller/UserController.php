@@ -6,11 +6,13 @@ namespace Wiki\WikiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 // Symfony
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 // Entity
+use Symfony\Component\HttpFoundation\Session\Session;
 use Wiki\WikiBundle\Entity\User;
 use Wiki\WikiBundle\Form\LoginType;
 use Wiki\WikiBundle\Form\SignUpType;
@@ -19,6 +21,40 @@ use Wiki\WikiBundle\Form\SignUpType;
 class UserController extends Controller
 {
     /**
+     *
+     * @ApiDoc(
+     *    description="Récupère tous les utilisateurs",
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
+     * )
+     *
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get("/users")
+     *
+     * @return array
+     */
+    public function getUsersAction()
+    {
+        $users = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findAll();
+
+        // Define Offset and Page ?
+        // Actually all the users
+
+        return $users;
+    }
+
+
+    /**
+     * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère un utilisateur",
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
+     * )
+     *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users/{id}")
      */
@@ -62,6 +98,12 @@ class UserController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Inscription d'un utilisateur",
+     *    input={"class"=UserType::class, "name"=""}
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})
      * @Rest\Post("/signup")
      */
@@ -74,6 +116,25 @@ class UserController extends Controller
         $form = $this->createForm(SignUpType::class, $user);
         $form->submit($userData); // Handle Date, Password repeat, status and role
 
+        $check_email = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('email' => $request->get('email')));
+
+        $check_username = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('username' => $request->get('username')));
+
+        if($check_email) {
+            return new JsonResponse(['email' => 'Cet email est déjà utilisé'], Response::HTTP_CONFLICT);
+        }
+
+        if($check_username) {
+            return new JsonResponse(['username' => 'Ce username est déjà utilisé'], Response::HTTP_CONFLICT);
+        }
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -84,7 +145,6 @@ class UserController extends Controller
         return $form;
 
     }
-
 
     /**
      * @Rest\View(statusCode=Response::HTTP_ACCEPTED, )
@@ -124,5 +184,4 @@ class UserController extends Controller
         $session->clear();
         return View::create(['logout' => 'OK'],Response::HTTP_NOT_FOUND);
     }
-
 }

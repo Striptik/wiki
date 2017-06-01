@@ -129,6 +129,12 @@ class UserController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Connexion d'un utilisateur",
+     *    input={"class"=UserType::class, "name"=""}
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_ACCEPTED, )
      * @Rest\Post("/signin")
      */
@@ -158,8 +164,13 @@ class UserController extends Controller
 
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Déconnexion de l'utilisateur"
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_ACCEPTED)
-     * @Rest\Get('/signout')
+     * @Rest\Get("/signout")
      */
     public function LogoutAction() {
         $session = $this->get('session');

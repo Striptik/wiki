@@ -13,7 +13,6 @@ class PageRevisionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
         $builder->add('status');
         $builder->add('content', TextType::class);
         $builder->add('updatedBy', IntegerType::class);

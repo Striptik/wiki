@@ -55,6 +55,61 @@ class Page
 
 
     /**
+     * @ORM\OneToMany(targetEntity="Rating", mappedBy="page")
+     */
+    protected $ratings;
+
+
+    /**
+     *  @ORM\ManyToOne(targetEntity="User", inversedBy="page")
+     */
+    private $user;
+
+
+
+    public function __construct($user)
+    {
+        $this->revisions = new ArrayCollection();
+        $this->setUser($user);
+
+    }
+
+    /**
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param string $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getRatings()
+    {
+        return $this->ratings;
+    }
+
+    /**
+     * @param mixed $ratings
+     */
+    public function setRatings($ratings)
+    {
+        $this->ratings = $ratings;
+    }
+
+
+    /**
      * Set title
      *
      * @param string $title
@@ -92,11 +147,6 @@ class Page
     public function setRevisions($revisions)
     {
         $this->revisions = $revisions;
-    }
-
-    public function __construct()
-    {
-        $this->revisions = new ArrayCollection();
     }
 
     /**

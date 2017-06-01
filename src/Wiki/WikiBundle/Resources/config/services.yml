@@ -2,3 +2,7 @@ services:
 #    wiki_wiki.example:
 #        class: Wiki\WikiBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    wikibundle.sameValues:
+        class: Wiki\WikiBundle\Validator\Constraints\ContainsSameValuesValidator
+        tags:
+            - { name: validator.constraint_validator, alias: password_not_identical}

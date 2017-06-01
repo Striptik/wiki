@@ -13,3 +13,8 @@ pages:
 revisions:
     type: rest
     resource: Wiki\WikiBundle\Controller\PageRevisionController
+
+
+ratings:
+    type: rest
+    resource: Wiki\WikiBundle\Controller\RatingController

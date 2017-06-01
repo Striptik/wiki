@@ -3,6 +3,8 @@
 namespace Wiki\WikiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Rating
@@ -29,32 +31,75 @@ class Rating
     private $rating;
 
     /**
-     * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="userId", type="integer")
-     */
-    private $userId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="revisionId", type="integer")
+     * @ORM\Column(name="revisionId", type="integer", nullable=true)
      */
     private $revisionId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="rating")
+     */
+    private $page;
+
+    /**
+     *  @ORM\ManyToOne(targetEntity="User", inversedBy="rating")
+     */
+    private $user;
+
+
+    public function __construct($page, $user)
+    {
+        $this->setPage($page);
+        $this->setUser($user);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param string $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param string $page
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
+
 
 
     /**

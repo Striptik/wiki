@@ -4,13 +4,14 @@ namespace Wiki\WikiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use FOS\UserBundle\Model\User as BaseUser;
+//use FOS\UserBundle\Model\User as BaseUser;
+use Wiki\WikiBundle\Validator\Constraints\ContainsSameValues;
 
 /**
  * @ORM\Entity(repositoryClass="Wiki\WikiBundle\Repository\UserRepository")
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user")
  */
-class User extends BaseUser
+class User
 {
     /**
      * @var int
@@ -37,7 +38,6 @@ class User extends BaseUser
 
     /**
      * @var string
-     *
      * @ORM\Column(name="password", type="string", length=255)
      */
     protected $password;
@@ -76,11 +76,6 @@ class User extends BaseUser
      */
     protected $lastConnectedAt;
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
 
     /**
      * Get id

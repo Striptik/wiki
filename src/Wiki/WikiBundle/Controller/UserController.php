@@ -78,6 +78,9 @@ class UserController extends Controller
     {
 
         $userData = $request->request->all();
+
+        //Check mdp identinque
+
         $user = new User();
         $form = $this->createForm(SignUpType::class, $user);
         $form->submit($userData); // Handle Date, Password repeat, status and role

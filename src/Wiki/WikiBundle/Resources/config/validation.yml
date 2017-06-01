@@ -43,8 +43,8 @@ Wiki\WikiBundle\Entity\User:
             - Type: string
         status:
             - NotBlank: ~
-            - Choice:
-                choices: [active, banned]
+#            - Choice:
+#                choices: [active, banned]
         password:
             - NotBlank: ~
             - Type: string

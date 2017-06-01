@@ -13,6 +13,9 @@ use FOS\UserBundle\Model\User as BaseUser;
 class User extends BaseUser
 {
     /**
+     *
+     * Identifiant unique d'un utilisateur
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +25,8 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * Date de création de l'utilisateur
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */

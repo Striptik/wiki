@@ -15,6 +15,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Rating
 {
     /**
+     *
+     * Identifiant unique d'une note
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -24,6 +27,9 @@ class Rating
     private $id;
 
     /**
+     *
+     * Note attribuée
+     *
      * @var int
      *
      * @ORM\Column(name="rating", type="integer", nullable=true)
@@ -31,12 +37,17 @@ class Rating
     private $rating;
 
     /**
+     * Date de création de la note
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
+     *
+     * Date de mise à jour de la note
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedAt", type="datetime")
      */
@@ -44,11 +55,15 @@ class Rating
 
 
     /**
+     * Page lié à la note
+     *
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="rating")
      */
     private $page;
 
     /**
+     * Utilisateur ayant attribué la note
+     *
      *  @ORM\ManyToOne(targetEntity="User", inversedBy="rating")
      */
     private $user;

@@ -15,6 +15,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Page
 {
     /**
+     *
+     * Identifiant unique d'une page
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -24,18 +27,27 @@ class Page
     protected $id;
 
     /**
+     *
+     * Date de création de page
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
     /**
+     *
+     * Date de mise à jour de la page
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     protected $updatedAt;
 
     /**
+     *
+     * Titre de la page
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -43,24 +55,35 @@ class Page
     private $title;
 
     /**
+     *
+     * Slug généré à partir du titre de la page
+     *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", length=255, unique=true, nullable=true)
      */
     protected $slug;
 
     /**
+     * Révisions de la page
+     *
      * @ORM\OneToMany(targetEntity="PageRevision", mappedBy="page")
      */
     protected $revisions;
 
 
     /**
+     *
+     * Note moyenne de la page
+     *
      * @ORM\OneToMany(targetEntity="Rating", mappedBy="page")
      */
     protected $ratings;
 
 
     /**
+     *
+     * Utilisaeur ayant créer la page
+     *
      *  @ORM\ManyToOne(targetEntity="User", inversedBy="page")
      */
     private $user;

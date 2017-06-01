@@ -101,7 +101,7 @@ class UserController extends Controller
      *
      * @ApiDoc(
      *    description="Inscription d'un utilisateur",
-     *    input={"class"=UserType::class, "name"=""}
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
      * )
      *
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})

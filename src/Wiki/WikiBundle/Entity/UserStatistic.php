@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class UserStatistic
 {
     /**
+     *
+     * Identifiant unique d'une statistique d'un utilisateur
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +25,8 @@ class UserStatistic
     private $id;
 
     /**
+     * Id de l'utilisateur concernée
+     *
      * @var int
      *
      * @ORM\Column(name="userId", type="integer")
@@ -29,6 +34,9 @@ class UserStatistic
     private $userId;
 
     /**
+     *
+     * Score de l'utilisateur
+     *
      * @var int
      *
      * @ORM\Column(name="score", type="integer")

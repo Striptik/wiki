@@ -14,6 +14,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class PageRevision
 {
     /**
+     *
+     * Identifiant unique d'une révision
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,6 +26,9 @@ class PageRevision
     private $id;
 
     /**
+     *
+     * État de la révision : [online, pending_validation, canceled, draft]
+     *
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
@@ -30,6 +36,8 @@ class PageRevision
     private $status;
 
     /**
+     * Contenu de la révision
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -37,6 +45,9 @@ class PageRevision
     private $content;
 
     /**
+     *
+     * Id de l'utilisateur ayant mis à jour
+     *
      * @var string
      *
      * @ORM\Column(name="updatedBy", type="string", length=255, nullable=true)
@@ -44,12 +55,18 @@ class PageRevision
     private $updatedBy;
 
     /**
+     *
+     * Date de création de la révision
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
+     *
+     * Page lié à la révision
+     *
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="pageRevision")

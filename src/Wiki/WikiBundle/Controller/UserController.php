@@ -8,11 +8,9 @@ use FOS\RestBundle\View\View;
 // Symfony
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// Datetime
-use \DateTime;
+use Symfony\Component\HttpFoundation\Session\Session;
 // Entity
 use Symfony\Component\HttpFoundation\Session\Session;
 use Wiki\WikiBundle\Entity\User;
@@ -59,8 +57,6 @@ class UserController extends Controller
      *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users/{id}")
-     *
-     * @return object
      */
     public function getUserAction(Request $request)
     {
@@ -76,18 +72,36 @@ class UserController extends Controller
                 'message'   => 'User not foud',
                 'error'     => 'No user with this id',
                 'id'        => $request->get('id')
-                ], Response::HTTP_NOT_FOUND
-                );
+            ], Response::HTTP_NOT_FOUND
+            );
         }
 
         return $user;
+    }
+
+
+    /**
+     *
+     * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get("/users")
+     *
+     * @return array
+     */
+    public function getUsersAction()
+    {
+        $users = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findAll();
+        return $users;
     }
 
     /**
      *
      * @ApiDoc(
      *    description="Inscription d'un utilisateur",
-     *    input={"class"=UserType::class, "name"=""}
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
      * )
      *
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})
@@ -96,8 +110,6 @@ class UserController extends Controller
     public function SignUpAction(Request $request)
     {
         $userData = $request->request->all();
-
-        //Check mdp identinque
 
         $user = new User();
         $user->setEnabled(1);
@@ -133,4 +145,44 @@ class UserController extends Controller
         return $form;
 
     }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_ACCEPTED, )
+     * @Rest\Post("/signin")
+     */
+    public function LoginAction(Request $request)
+    {
+        $userData = $request->request->all();
+
+        $session = new Session();
+        $session->start();
+
+        $user = new User();
+        $form = $this->createForm(LoginType::class, $user);
+        $form->submit($userData);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $session->set('userId', $user->getId());
+
+            // Serialize
+
+            return View::create(['login' => 'OK', 'userId' => $user->getId()],Response::HTTP_ACCEPTED);
+        }
+        return View::create(['error' => 'Erreur login'],Response::HTTP_NOT_FOUND);
+    }
+
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_ACCEPTED)
+     * @Rest\Post('/signout')
+     */
+    public function LogoutAction(Request $request) {
+        $session = $this->get('session');
+        $session->clear();
+        return View::create(['logout' => 'OK'],Response::HTTP_NOT_FOUND);
+    }
+
 }

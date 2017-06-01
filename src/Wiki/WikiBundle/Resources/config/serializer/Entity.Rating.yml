@@ -1,0 +1,15 @@
+Wiki\WikiBundle\Entity\Rating:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['rating']
+        rating:
+            groups: ['rating']
+        createdAt:
+            groups: ['rating']
+        updatedAt:
+            groups: ['rating']
+        page:
+            groups: ['rating']
+        user:
+            groups: ['rating']

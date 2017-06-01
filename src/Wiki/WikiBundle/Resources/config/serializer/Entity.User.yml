@@ -9,8 +9,6 @@ Wiki\WikiBundle\Entity\User:
             groups: ['user']
         enabled:
             groups: ['user']
-        password:
-            groups: ['user']
         role:
             groups: ['user']
         createdAt:

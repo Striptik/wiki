@@ -170,9 +170,12 @@ class PageController extends Controller
             ->findBy(array('id' => $request->get('userId')));
         $page = new Page($user);
 
+        $pageSub = $request->request->all();
+        unset($arr['userId']);
+
         $form = $this->createForm(PageType::class, $page);
 
-        $form->submit($request->request->all()); // Validation des données
+        $form->submit($pageSub); // Validation des données
 
         if ($form->isValid()) {
             $em = $this

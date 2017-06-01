@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new AppBundle\AppBundle(),
-            new Wiki\WikiBundle\WikiWikiBundle()
+            new Wiki\WikiBundle\WikiWikiBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

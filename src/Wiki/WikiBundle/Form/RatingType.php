@@ -12,7 +12,6 @@ class RatingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('rating', IntegerType::class);
-        // add User ? add Page ?
     }
 
     public function configureOptions(OptionsResolver $resolver)

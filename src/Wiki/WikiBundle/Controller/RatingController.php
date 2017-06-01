@@ -41,12 +41,32 @@ class RatingController extends Controller
      */
     public function postRatingsAction(Request $request)
     {
-        $rating = new Rating();
+        $user = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('token' => $request->get('userToken')));
+
+        $page = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:Page')
+            ->findBy(array('id' => $request->get('pageId')));
+
+        $isRated = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBubdle:Rating')
+            ->findOneBy(array('user' => $user, 'page' => $page));
+
+        if ($isRated) {
+            return View::create(['error' => 'Vous avez déjà noté cette page'], Response::HTTP_NOT_FOUND);
+        }
+
+        $rating = new Rating($page, $user);
 
         $form = $this->createForm(RatingType::class, $rating);
-
         $form->submit($request->request->all()); // Validation des données
-
         if ($form->isValid()) {
             $em = $this
                 ->getDoctrine()
@@ -60,17 +80,27 @@ class RatingController extends Controller
         }
     }
 
+
     /**
      * Get Page Average
      * @Rest\Get("/average/{id}")
      */
     public function getAverageAction(Request $request)
     {
+        $page = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:Page')
+            ->findBy(array('id' => $request->get('pageId')));
+
         $rates = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('WikiWikiBundle:Rating')
-            ->findBy(array('id' => $request->get('id')));
+            ->findBy(array('page' => $page->));
+
+
+
         return $rates;
     }
 

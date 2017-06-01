@@ -42,12 +42,6 @@ class Rating
      */
     private $updatedAt;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="revisionId", type="integer", nullable=true)
-     */
-    private $revisionId;
 
     /**
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="rating")
@@ -66,6 +60,15 @@ class Rating
         $this->setUser($user);
     }
 
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -83,7 +86,6 @@ class Rating
         $this->user = $user;
     }
 
-
     /**
      * @return string
      */
@@ -98,18 +100,6 @@ class Rating
     public function setPage($page)
     {
         $this->page = $page;
-    }
-
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -136,19 +126,6 @@ class Rating
         return $this->rating;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Rating
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
 
     /**
      * Get createdAt
@@ -160,19 +137,6 @@ class Rating
         return $this->createdAt;
     }
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Rating
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 
     /**
      * Get updatedAt
@@ -184,52 +148,5 @@ class Rating
         return $this->updatedAt;
     }
 
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return Rating
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return int
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Set revisionId
-     *
-     * @param integer $revisionId
-     *
-     * @return Rating
-     */
-    public function setRevisionId($revisionId)
-    {
-        $this->revisionId = $revisionId;
-
-        return $this;
-    }
-
-    /**
-     * Get revisionId
-     *
-     * @return int
-     */
-    public function getRevisionId()
-    {
-        return $this->revisionId;
-    }
 }
 

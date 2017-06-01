@@ -15,9 +15,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Page
 {
     /**
-     *
-     * Identifiant unique du lieu
-     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")

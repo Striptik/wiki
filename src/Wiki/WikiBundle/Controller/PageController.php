@@ -20,7 +20,8 @@ class PageController extends Controller
      *
      * @ApiDoc(
      *    description="Récupère la liste des pages du wiki",
-     *    output= { "class"=Page::class, "collection"=true, "groups"={"page"} }
+     *    input={"class"=PageType::class, "name"=""}
+     *
      * )
      *
      * @Rest\View(serializerGroups={"page"})

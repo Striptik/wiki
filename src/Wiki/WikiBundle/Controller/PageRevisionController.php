@@ -149,6 +149,19 @@ class PageRevisionController extends Controller
             return $this->pageNotFound();
         }
 
+        if (count($page->getRevisions()) !== 0) {
+            $pageRevisions = $page->getRevisions();
+
+            foreach ($pageRevisions as $revision) {
+                if ($revision->getStatus() == 'online') {
+                    $revision->setStatus('canceled');
+                    break;
+                }
+            }
+        } else {
+            return $this->revisionNotFound();
+        }
+
         $pageRevision = $this
             ->getDoctrine()
             ->getManager()
@@ -157,26 +170,11 @@ class PageRevisionController extends Controller
 
         $pageRevision->setStatus('online');
 
-        if (empty($pageRevision)) {
-            return $this->revisionNotFound();
-        }
-
         $form = $this->createForm(PageRevisionType::class, $pageRevision);
 
         $form->submit($request->request->all(), false);
 
         if ($form->isValid()) {
-            if (count($page->getRevisions()) !== 0) {
-                $pageRevisions = $page->getRevisions();
-
-                foreach ($pageRevisions as $revision) {
-                    if ($revision->getStatus() == 'online') {
-                        $revision->setStatus('canceled');
-                        break;
-                    }
-                }
-            }
-
             $em = $this
                 ->getDoctrine()
                 ->getManager();

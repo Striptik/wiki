@@ -14,8 +14,12 @@ class PageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class);
-        $builder->add('slug');
+        $builder->add('title', TextType::class, [
+            'description' => "Nom du lieu"
+        ]);
+        $builder->add('slug', TextType::class, [
+            'description' => "Slug de la page"
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

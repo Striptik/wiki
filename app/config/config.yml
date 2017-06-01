@@ -128,6 +128,15 @@ fos_rest:
     body_converter:
         enabled: true
 
+# FOSUser Configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Wiki\WikiBundle\Entity\User
+    from_email:
+        address: "email@wiki.com"
+        sender_name: "No Reply"
+
 # JMS Serializer Configuration
 jms_serializer:
     handlers:

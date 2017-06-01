@@ -13,3 +13,6 @@ pages:
 revisions:
     type: rest
     resource: Wiki\WikiBundle\Controller\PageRevisionController
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

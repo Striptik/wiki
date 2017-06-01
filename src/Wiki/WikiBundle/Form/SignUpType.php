@@ -17,6 +17,7 @@ class SignUpType extends AbstractType
 
         $builder->add('email');
         $builder->add('pseudo');
+        $builder->add('username');
 
         $builder->add('password'); // To get the password and the verification
 

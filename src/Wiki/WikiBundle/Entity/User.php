@@ -24,23 +24,9 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    protected $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="status", type="string", length=255)
      */
     protected $status;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    protected $password;
 
     /**
      * @var string

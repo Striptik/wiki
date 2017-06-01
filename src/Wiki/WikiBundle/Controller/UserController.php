@@ -13,7 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 // Datetime
 use \DateTime;
 // Entity
+use Symfony\Component\HttpFoundation\Session\Session;
 use Wiki\WikiBundle\Entity\User;
+use Wiki\WikiBundle\Form\LoginType;
 use Wiki\WikiBundle\Form\SignUpType;
 
 
@@ -76,7 +78,6 @@ class UserController extends Controller
      */
     public function SignUpAction(Request $request)
     {
-
         $userData = $request->request->all();
 
         //Check mdp identinque
@@ -86,6 +87,25 @@ class UserController extends Controller
         $form = $this->createForm(SignUpType::class, $user);
         $form->submit($userData); // Handle Date, Password repeat, status and role
 
+        $check_email = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('email' => $request->get('email')));
+
+        $check_username = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User')
+            ->findBy(array('username' => $request->get('username')));
+
+        if($check_email) {
+            throw new HttpException(400, "Cet email est déjà utilisé");
+        }
+
+        if($check_username) {
+            throw new HttpException(400, "Ce username est déjà utilisé");
+        }
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -96,6 +116,4 @@ class UserController extends Controller
         return $form;
 
     }
-
-
 }

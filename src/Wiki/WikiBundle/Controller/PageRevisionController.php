@@ -2,6 +2,7 @@
 
 namespace Wiki\WikiBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,11 @@ class PageRevisionController extends Controller
 {
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère les révisions d'une page en fonction du statut",
+     *    output= { "class"=PageRevision::class, "collection"=true, "groups"={"pageRevision"} }
+     * )
      *
      * @Rest\View(serializerGroups={"pageRevision"})
      * @Rest\Get("/pages/{page_slug}/revision")
@@ -39,6 +45,11 @@ class PageRevisionController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère les révisions d'une page en fonction du statut",
+     *    output= { "class"=PageRevision::class, "collection"=true, "groups"={"pageRevision"} }
+     * )
      *
      * @Rest\View(serializerGroups={"pageRevision"})
      * @Rest\Get("/pages/{page_slug}/revision/{status}")
@@ -79,13 +90,18 @@ class PageRevisionController extends Controller
     }
 
     /**
- * @param Request $request
- *
- * @Rest\View(serializerGroups={"pageRevision"})
- * @Rest\Post("/pages/{page_slug}/revision")
- *
- * @return array
- */
+     * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Créer une révision de page",
+     *    input={"class"=PageRevisionType::class, "name"=""}
+     * )
+     *
+     * @Rest\View(serializerGroups={"pageRevision"})
+     * @Rest\Post("/pages/{page_slug}/revision")
+     *
+     * @return array
+     */
     public function postPageRevisionAction(Request $request)
     {
         $page = $this
@@ -97,17 +113,6 @@ class PageRevisionController extends Controller
         if (empty($page)) {
             return $this->pageNotFound();
         }
-
-        /*if (count($page->getRevisions()) !== 0) {
-            $pageRevisions = $page->getRevisions();
-
-            foreach ($pageRevisions as $revision) {
-                if ($revision->getStatus() == 'online') {
-                    $revision->setStatus('canceled');
-                    break;
-                }
-            }
-        }*/
 
         $pageRevision = new PageRevision($page);
 
@@ -131,6 +136,11 @@ class PageRevisionController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Passe une révision de page online",
+     *    input={"class"=PageRevisionType::class, "name"=""}
+     * )
      *
      * @Rest\View(serializerGroups={"pageRevision"})
      * @Rest\Patch("/pages/{page_slug}/revision/{id_revision}/online")
@@ -189,6 +199,11 @@ class PageRevisionController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Supprime une page révision"
+     * )
+     *
      * @Rest\View(serializerGroups={"pageRevision"})
      * @Rest\Delete("/pages/{page_slug}/revision/{id}")
      */

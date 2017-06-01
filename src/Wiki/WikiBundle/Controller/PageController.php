@@ -20,8 +20,7 @@ class PageController extends Controller
      *
      * @ApiDoc(
      *    description="Récupère la liste des pages du wiki",
-     *    input={"class"=PageType::class, "name"=""}
-     *
+     *    output= { "class"=Page::class, "collection"=true, "groups"={"page"} }
      * )
      *
      * @Rest\View(serializerGroups={"page"})
@@ -42,6 +41,11 @@ class PageController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère les 10 dernières pages publiées (10 par défaut)",
+     *    output= { "class"=Page::class, "collection"=true, "groups"={"page"} }
+     * )
      *
      * @Rest\View(serializerGroups={"page"})
      * @Rest\Get("/pages/last")
@@ -79,6 +83,10 @@ class PageController extends Controller
     /**
      * @param Request $request
      *
+     * @ApiDoc(
+     *    description="Effectue une recherche sur les titres de pages",
+     *    output= { "class"=Page::class, "collection"=true, "groups"={"page"} }
+     * )
      * @Rest\View(serializerGroups={"page"})
      * @Rest\Get("/pages/search")
      * @QueryParam(name="q", requirements=".+", default="", description="Query à rechercher")
@@ -147,6 +155,12 @@ class PageController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Créer une page",
+     *    input={"class"=PageType::class, "name"=""}
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"page"})
      * @Rest\Post("/pages")
      */
@@ -172,6 +186,11 @@ class PageController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Supprime une page"
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"page"})
      * @Rest\Delete("/pages/{slug}")
      */

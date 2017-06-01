@@ -6,6 +6,7 @@ namespace Wiki\WikiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 // Symfony
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,11 @@ use Wiki\WikiBundle\Form\SignUpType;
 class UserController extends Controller
 {
     /**
+     *
+     * @ApiDoc(
+     *    description="Récupère tous les utilisateurs",
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
+     * )
      *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users")
@@ -45,6 +51,11 @@ class UserController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère un utilisateur",
+     *    output= { "class"=User::class, "collection"=true, "groups"={"user"} }
+     * )
      *
      * @Rest\View(serializerGroups={"user"})
      * @Rest\Get("/users/{id}")
@@ -73,6 +84,12 @@ class UserController extends Controller
     }
 
     /**
+     *
+     * @ApiDoc(
+     *    description="Inscription d'un utilisateur",
+     *    input={"class"=UserType::class, "name"=""}
+     * )
+     *
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})
      * @Rest\Post("/signup")
      */

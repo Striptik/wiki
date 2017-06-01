@@ -170,6 +170,7 @@ class PageController extends Controller
      */
     public function removePageAction(Request $request)
     {
+
         $em = $this->getDoctrine()
             ->getManager();
         $page = $em->getRepository('WikiWikiBundle:Page')

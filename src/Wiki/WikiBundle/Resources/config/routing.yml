@@ -20,3 +20,7 @@ ratings:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+nelmio-api-doc:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /documentation

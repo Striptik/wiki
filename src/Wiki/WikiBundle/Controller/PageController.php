@@ -2,6 +2,7 @@
 
 namespace Wiki\WikiBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,11 @@ class PageController extends Controller
 {
     /**
      * @param Request $request
+     *
+     * @ApiDoc(
+     *    description="Récupère la liste des pages du wiki",
+     *    output= { "class"=Page::class, "collection"=true, "groups"={"page"} }
+     * )
      *
      * @Rest\View(serializerGroups={"page"})
      * @Rest\Get("/pages")

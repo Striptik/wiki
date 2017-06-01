@@ -79,13 +79,13 @@ class PageRevisionController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
-     * @Rest\View(serializerGroups={"pageRevision"})
-     * @Rest\Post("/pages/{page_slug}/revision")
-     *
-     * @return array
-     */
+ * @param Request $request
+ *
+ * @Rest\View(serializerGroups={"pageRevision"})
+ * @Rest\Post("/pages/{page_slug}/revision")
+ *
+ * @return array
+ */
     public function postPageRevisionAction(Request $request)
     {
         $page = $this
@@ -121,6 +121,67 @@ class PageRevisionController extends Controller
                 ->getManager();
 
             $em->persist($pageRevision);
+            $em->flush();
+
+            return $pageRevision;
+        } else {
+            return $form;
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Rest\View(serializerGroups={"pageRevision"})
+     * @Rest\Patch("/pages/{page_slug}/revision/{id_revision}/online")
+     *
+     * @return array
+     */
+    public function patchPageRevisionAction(Request $request)
+    {
+        $page = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:Page')
+            ->findOneBy(array('slug' => $request->get('page_slug')));
+
+        if (empty($page)) {
+            return $this->pageNotFound();
+        }
+
+        $pageRevision = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:PageRevision')
+            ->find($request->get('id_revision'));
+
+        $pageRevision->setStatus('online');
+
+        if (empty($pageRevision)) {
+            return $this->revisionNotFound();
+        }
+
+        $form = $this->createForm(PageRevisionType::class, $pageRevision);
+
+        $form->submit($request->request->all(), false);
+
+        if ($form->isValid()) {
+            if (count($page->getRevisions()) !== 0) {
+                $pageRevisions = $page->getRevisions();
+
+                foreach ($pageRevisions as $revision) {
+                    if ($revision->getStatus() == 'online') {
+                        $revision->setStatus('canceled');
+                        break;
+                    }
+                }
+            }
+
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+
+            $em->merge($pageRevision);
             $em->flush();
 
             return $pageRevision;

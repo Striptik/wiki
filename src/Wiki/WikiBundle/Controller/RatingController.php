@@ -83,9 +83,9 @@ class RatingController extends Controller
 
     /**
      * Get Page Average
-     * @Rest\Get("/average/{id}")
+     * @Rest\Get("/average/page/{id}")
      */
-    public function getAverageAction(Request $request)
+    public function getAveragePageAction(Request $request)
     {
         $page = $this
             ->getDoctrine()
@@ -99,146 +99,60 @@ class RatingController extends Controller
             ->getRepository('WikiWikiBundle:Rating')
             ->findBy(array('page' => $page));
 
+        if (empty($rates))
+        {
+            return $this->noRates('La page');
+        }
 
+        $avg = 0;
+        $nb = 0;
+        foreach($rates as $rate)
+        {
+            $avg = $rate->getRating();
+            $nb++;
+        }
+        $avg = $avg/$nb;
 
-        return $rates;
+        return View::create(['average' => $avg], Response::HTTP_CREATED);
     }
 
+    /**
+     * Get User Average
+     * @Rest\Get("/average/user/{id}")
+     */
+    public function getAverageUserAction(Request $request)
+    {
+        $user = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:User`')
+            ->findBy(array('' => $request->get('userToken')));
 
- //    /**
-//     * @param Request $request
-//     *
-//     * @Rest\Get("/pages/last")
-//     * @QueryParam(name="offset", requirements="\d+", default="", description="Index de début de la pagination")
-//     * @QueryParam(name="limit", requirements="\d+", default="", description="Index de fin de la pagination")
-//     *
-//     * @return array
-//     */
-//    public function getLastPagesAction(Request $request, ParamFetcher $paramFetcher)
-//    {
-//        $offset = $paramFetcher->get('offset');
-//        $limit = $paramFetcher->get('limit');
-//
-//        $qb = $this->getDoctrine()
-//            ->getManager()
-//            ->createQueryBuilder();
-//
-//        $qb->select('p')
-//            ->from('WikiWikiBundle:Page', 'p')
-//            ->orderBy('p.createdAt', 'DESC');
-//
-//        if ($offset != "") {
-//            $qb->setFirstResult($offset);
-//        }
-//
-//        if ($limit != "") {
-//            $qb->setMaxResults($limit);
-//        }
-//
-//        $pages = $qb->getQuery()->getResult();
-//
-//        return $pages;
-//    }
-//
-//
-//
-//    /**
-//     * @param Request $request
-//     *
-//     * @Rest\View(serializerGroups={"page"})
-//     * @Rest\Get("/pages/search")
-//     * @QueryParam(name="q", requirements=".+", default="", description="Query à rechercher")
-//     * @QueryParam(name="offset", requirements="\d+", default="0", description="Index de début de la pagination")
-//     * @QueryParam(name="limit", requirements="\d+", default="10", description="Index de fin de la pagination")
-//     *
-//     * @return array
-//     */
-//    public function getSearchPagesAction(Request $request, ParamFetcher $paramFetcher)
-//    {
-//        $q = $paramFetcher->get('q');
-//        $offset = $paramFetcher->get('offset');
-//        $limit = $paramFetcher->get('limit');
-//
-//        $qb = $this->getDoctrine()
-//            ->getManager()
-//            ->createQueryBuilder();
-//
-//        $qb->select('p')
-//            ->from('WikiWikiBundle:Page', 'p')
-//            ->orderBy('p.createdAt', 'DESC');
-//
-//        if ($q != "") {
-//            $qb->where('p.title LIKE :q')
-//            ->setParameter('q', '%'.$q.'%');
-//        }
-//
-//        if ($offset != "0") {
-//            $qb->setFirstResult($offset);
-//        }
-//
-//        if ($limit != "10") {
-//            $qb->setMaxResults($limit);
-//        }
-//
-//        $pages = $qb->getQuery()->getResult();
-//
-//        if (empty($pages)) {
-//            return $this->pageNotFound();
-//        }
-//
-//        return $pages;
-//    }
-//
-//    /**
-//     * @param Request $request
-//     *
-//     * @Rest\View(serializerGroups={"page"})
-//     * @Rest\Get("/pages/{slug}")
-//     *
-//     * @return object
-//     */
-//    public function getPageAction(Request $request)
-//    {
-//        $page = $this
-//            ->getDoctrine()
-//            ->getManager()
-//            ->getRepository('WikiWikiBundle:Page')
-//            ->findBy(array('slug' => $request->get('slug')));
-//
-//        if (empty($page)) {
-//            return $this->pageNotFound();
-//        }
-//
-//        return $page;
-//    }
-//
-//    /**
-//     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"page"})
-//     * @Rest\Delete("/pages/{slug}")
-//     */
-//    public function removePageAction(Request $request)
-//    {
-//        $em = $this->getDoctrine()
-//            ->getManager();
-//        $page = $em->getRepository('WikiWikiBundle:Page')
-//            ->findOneBy(array('slug' => $request->get('slug')));
-//
-//        if (!$page) {
-//            return $this->pageNotFound();
-//        }
-//
-//        foreach ($page->getRevisions() as $pageRevision) {
-//            $em->remove($pageRevision);
-//        }
-//
-//        $em->remove($page);
-//        $em->flush();
-//
-//        return View::create(['message' => 'Page deleted'], Response::HTTP_NOT_FOUND);
-//    }
-//
-//    private function pageNotFound()
-//    {
-//        return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
-//    }
+        $rates = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('WikiWikiBundle:Rating')
+            ->findBy(array('user' => $user));
+
+        if (empty($rates))
+        {
+            return $this->noRates('L\'utilisateur');
+        }
+
+        $avg = 0;
+        $nb = 0;
+        foreach($rates as $rate)
+        {
+            $avg = $rate->getRating();
+            $nb++;
+        }
+        $avg = $avg/$nb;
+
+        return View::create(['average' => $avg], Response::HTTP_CREATED);
+    }
+
+    public function noRates($type)
+    {
+        return View::create(['error' => $type.' ne possède aucune note'],Response::HTTP_NOT_FOUND);
+    }
 }

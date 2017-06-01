@@ -191,6 +191,6 @@ class PageController extends Controller
 
     private function pageNotFound()
     {
-        return View::create(['message' => 'Page not found'], Response::HTTP_NOT_FOUND);
+        return View::create(['error' => 'Page non trouvée'], Response::HTTP_NOT_FOUND);
     }
 }

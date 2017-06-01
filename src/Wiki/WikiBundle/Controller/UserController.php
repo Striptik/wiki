@@ -6,7 +6,6 @@ namespace Wiki\WikiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 // Symfony
-use HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,11 +100,11 @@ class UserController extends Controller
             ->findBy(array('username' => $request->get('username')));
 
         if($check_email) {
-            throw new HttpException(400, "Cet email est déjà utilisé");
+            return new JsonResponse(['email' => 'Cet email est déjà utilisé'], Response::HTTP_CONFLICT);
         }
 
         if($check_username) {
-            throw new HttpException(400, "Ce username est déjà utilisé");
+            return new JsonResponse(['username' => 'Ce username est déjà utilisé'], Response::HTTP_CONFLICT);
         }
 
         if ($form->isValid()) {
